@@ -9,17 +9,18 @@
     body {
         margin: 0;
         height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         overflow: hidden;
         background: white;
         font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
+    /* BOTÃO */
     #btn {
         position: absolute;
-        padding: 14px 28px;
+        padding: 14px 30px;
         font-size: 18px;
         background: #ff4fa8;
         color: white;
@@ -28,12 +29,63 @@
         cursor: pointer;
         transition: 0.2s;
     }
+
+    /* TELA FINAL */
+    #final {
+        display: none;
+        position: absolute;
+        inset: 0;
+        background: white;
+        overflow: hidden;
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    #texto-final {
+        font-size: 48px;
+        color: #ff4fa8;
+        font-weight: bold;
+        margin-top: 40px;
+    }
+
+    .img {
+        position: absolute;
+        width: 150px;
+        border-radius: 10px;
+        transform: rotate(-5deg);
+    }
+
+    #coracao {
+        font-size: 80px;
+        color: #ff4fa8;
+        margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .img { width: 110px; }
+        #texto-final { font-size: 32px; }
+    }
 </style>
 
 </head>
 <body>
 
+<!-- BOTÃO INICIAL -->
 <button id="btn">clique aqui</button>
+
+<!-- TELA FINAL -->
+<div id="final">
+
+    <div id="texto-final">TE AMO MUITO!</div>
+    <div id="coracao">❤</div>
+
+    <!-- IMAGENS AO REDOR -->
+    <img src="images/1.jpg" class="img" style="top: 10%; left: 5%; transform: rotate(-10deg);">
+    <img src="images/2.jpg" class="img" style="top: 10%; right: 5%; transform: rotate(8deg);">
+    <img src="images/3.jpg" class="img" style="bottom: 10%; left: 10%; transform: rotate(6deg);">
+    <img src="images/4.jpg" class="img" style="bottom: 10%; right: 10%; transform: rotate(-7deg);">
+
+</div>
 
 <script>
 const textos = [
@@ -49,10 +101,10 @@ let etapa = 0;
 function moverBotao() {
     const btn = document.getElementById("btn");
 
-    // troca o texto
-    btn.textContent = textos[etapa];
+    if (etapa < textos.length) {
+        btn.textContent = textos[etapa];
+    }
 
-    // escolhe posição aleatória na tela
     const maxX = window.innerWidth - 150;
     const maxY = window.innerHeight - 70;
 
@@ -64,17 +116,19 @@ function moverBotao() {
 
     etapa++;
 
-    // última etapa → redireciona
     if (etapa === textos.length) {
-        setTimeout(() => {
-            window.location.href = "link.html"; 
-        }, 700);
+        setTimeout(() => abrirFinal(), 800);
     }
+}
+
+function abrirFinal() {
+    document.getElementById("btn").style.display = "none";
+    document.getElementById("final").style.display = "block";
 }
 
 document.getElementById("btn").addEventListener("click", moverBotao);
 
-// garante posição inicial
+// posição inicial
 moverBotao();
 </script>
 
