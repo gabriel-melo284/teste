@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surpresa</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: white;
+        font-family: Arial, sans-serif;
+    }
+
+    #btn {
+        position: absolute;
+        padding: 14px 28px;
+        font-size: 18px;
+        background: #ff4fa8;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+</style>
+
+</head>
+<body>
+
+<button id="btn">clique aqui</button>
+
+<script>
+const textos = [
+    "clique aqui",
+    "agora aqui",
+    "quase lá",
+    "último",
+    "agora é sério"
+];
+
+let etapa = 0;
+
+function moverBotao() {
+    const btn = document.getElementById("btn");
+
+    // troca o texto
+    btn.textContent = textos[etapa];
+
+    // escolhe posição aleatória na tela
+    const maxX = window.innerWidth - 150;
+    const maxY = window.innerHeight - 70;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+
+    etapa++;
+
+    // última etapa → redireciona
+    if (etapa === textos.length) {
+        setTimeout(() => {
+            window.location.href = "link.html"; 
+        }, 700);
+    }
+}
+
+document.getElementById("btn").addEventListener("click", moverBotao);
+
+// garante posição inicial
+moverBotao();
+</script>
+
+</body>
+</html>
