@@ -4,174 +4,136 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Surpresa</title>
-
 <style>
-    :root {
-        --pink: #ff4fa3;
-    }
+  :root { --pink:#ff4fa3; }
 
-    html, body {
-        margin: 0;
-        padding: 0;
-        background: white;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        font-family: system-ui, Arial, sans-serif;
-    }
+  html, body {
+    margin:0; padding:0;
+    height:100%; width:100%;
+    overflow:hidden; background:#fff;
+    font-family:system-ui, -apple-system, Arial, sans-serif;
+  }
 
-    /* === ESTÁGIO DOS BOTÕES === */
-    #stage {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-    }
+  /* Estágio dos botões */
+  #stage { position:relative; width:100vw; height:100vh; }
 
-    .btn {
-        position: absolute;
-        padding: 14px 28px;
-        font-size: 20px;
-        background: var(--pink);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        box-shadow: 0 10px 24px rgba(255, 79, 163, 0.25);
-        transition: 0.15s;
-    }
+  .btn {
+    position:absolute;
+    padding:14px 28px;
+    font-size:20px;
+    background:var(--pink);
+    color:#fff; border:0; border-radius:12px;
+    cursor:pointer;
+    box-shadow:0 10px 24px rgba(255,79,163,.25);
+    transition:transform .1s ease;
+    touch-action:manipulation;
+    user-select:none;
+  }
+  .btn:active { transform:scale(.98); }
 
-    /* === TELA FINAL === */
-    #final {
-        position: absolute;
-        inset: 0;
-        background: white;
-        display: none;                   /* aparece só ao final */
-        overflow: hidden;
+  /* Tela final (centralização perfeita) */
+  #final {
+    position:absolute; inset:0;
+    display:none;                /* só mostra ao final */
+    background:#fff;
+    overflow:hidden;
+    display:flex; flex-direction:column;
+    justify-content:center; align-items:center;
+    text-align:center; color:var(--pink);
+  }
+  h1 { margin:0; font-size:clamp(36px,10vw,96px); font-weight:900; }
+  .heart { font-size:clamp(40px,8vw,80px); margin-top:12px; }
 
-        /* Centralização perfeita no mobile e desktop */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+  /* Fotos nos cantos */
+  .photo {
+    position:absolute;
+    width:28vw; max-width:160px;
+    border-radius:14px; border:4px solid var(--pink);
+    object-fit:cover; background:#fff;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+    pointer-events:none;
+  }
+  .top-left    { top:20px;   left:20px;   transform:rotate(-6deg); }
+  .top-right   { top:20px;   right:20px;  transform:rotate(6deg); }
+  .bottom-left { bottom:20px; left:20px;  transform:rotate(6deg); }
+  .bottom-right{ bottom:20px; right:20px; transform:rotate(-6deg); }
 
-    .center {
-        text-align: center;
-        color: var(--pink);
-        position: relative;
-    }
-
-    h1 {
-        margin: 0;
-        font-size: clamp(36px, 10vw, 96px);
-        font-weight: 900;
-    }
-
-    .heart {
-        font-size: clamp(40px, 8vw, 80px);
-        margin-top: 12px;
-    }
-
-    /* === FOTOS === */
-    .photo {
-        position: absolute;
-        width: 28vw;
-        max-width: 160px;
-        border-radius: 14px;
-        border: 4px solid var(--pink);
-        object-fit: cover;
-        background: white;
-        box-shadow: 0 10px 20px rgba(0,0,0,.15);
-    }
-
-    .top-left { top: 20px; left: 20px; transform: rotate(-6deg); }
-    .top-right { top: 20px; right: 20px; transform: rotate(6deg); }
-    .bottom-left { bottom: 20px; left: 20px; transform: rotate(6deg); }
-    .bottom-right { bottom: 20px; right: 20px; transform: rotate(-6deg); }
-
-    @media (max-width: 600px) {
-        .photo { width: 34vw; max-width: 140px; }
-        .btn { width: 70vw; max-width: 300px; }
-    }
+  @media (max-width:600px) {
+    .photo { width:34vw; max-width:140px; }
+    .btn { width:70vw; max-width:320px; }
+  }
 </style>
-
 </head>
 <body>
 
-<!-- ÁREA DOS BOTÕES -->
+<!-- FASE DOS BOTÕES -->
 <div id="stage"></div>
 
 <!-- TELA FINAL -->
 <div id="final">
-
-    <!-- FOTOS (troque os nomes se necessário) -->
-    <img src="images/1.jpg" class="photo top-left" alt="">
-    <img src="images/2.jpg" class="photo top-right" alt="">
-    <img src="images/3.jpg" class="photo bottom-left" alt="">
-    <img src="images/4.jpg" class="photo bottom-right" alt="">
-
-    <div class="center">
-        <h1>TE AMO MUITO!</h1>
-        <div class="heart">💗</div>
-    </div>
+  <!-- Troque os src conforme seus arquivos -->
+  <img class="photo top-left"    src="images/1.jpg" alt="">
+  <img class="photo top-right"   src="images/2.jpg" alt="">
+  <img class="photo bottom-left" src="images/3.jpg" alt="">
+  <img class="photo bottom-right"src="images/4.jpg" alt="">
+  <h1>TE AMO MUITO!</h1>
+  <div class="heart">💗</div>
 </div>
 
 <script>
-/* TEXTOS DOS BOTÕES */
-const STEPS = [
-    "clique aqui",
-    "agora aqui",
-    "quase lá",
-    "último",
-    "agora é sério"
-];
+  // Etapas
+  const STEPS = ["clique aqui","agora aqui","quase lá","último","agora é sério"];
+  let step = 0;
+  let advancing = false; // antirrepique
 
-let step = 0;
+  const stage = document.getElementById('stage');
+  const finalScreen = document.getElementById('final');
 
-function random(min, max) {
-    return Math.random() * (max - min) + min;
-}
+  function rand(min, max){ return Math.random() * (max - min) + min; }
 
-function showStep() {
+  function renderStep() {
+    // terminou? mostra a tela final na MESMA página
     if (step >= STEPS.length) {
-        // Mostrar tela final
-        document.getElementById("stage").style.display = "none";
-        document.getElementById("final").style.display = "flex";
-        return;
+      stage.style.display = 'none';
+      finalScreen.style.display = 'flex';
+      return;
     }
 
-    const stage = document.getElementById("stage");
-    stage.innerHTML = "";
-
-    const btn = document.createElement("button");
-    btn.className = "btn";
+    // Limpa e cria novo botão
+    stage.replaceChildren();
+    const btn = document.createElement('button');
+    btn.className = 'btn';
     btn.textContent = STEPS[step];
 
-    const margin = 20;
-    const bw = 200;
-    const bh = 60;
+    // Área segura para não colar nas bordas
+    const margin = 20, bw = 220, bh = 64;
+    const maxX = window.innerWidth  - (margin + bw);
+    const maxY = window.innerHeight - (margin + bh);
+    btn.style.left = `${rand(margin, Math.max(margin, maxX))}px`;
+    btn.style.top  = `${rand(margin, Math.max(margin, maxY))}px`;
 
-    const maxX = innerWidth - (margin + bw);
-    const maxY = innerHeight - (margin + bh);
-
-    btn.style.left = random(margin, maxX) + "px";
-    btn.style.top = random(margin, maxY) + "px";
-
-    btn.onclick = () => {
-        step++;
-        showStep();
-    };
+    // Evento robusto no mobile: pointerdown + antirrepique
+    btn.addEventListener('pointerdown', (ev) => {
+      if (advancing) return;
+      advancing = true;
+      ev.preventDefault();
+      btn.disabled = true;
+      btn.style.pointerEvents = 'none';
+      step += 1;
+      // pequena espera para garantir que o botão não receba segundo evento
+      setTimeout(() => { advancing = false; renderStep(); }, 50);
+    }, { passive:false, once:true });
 
     stage.appendChild(btn);
-}
+  }
 
-window.onload = showStep;
+  // Inicializa
+  addEventListener('load', renderStep);
 
-window.addEventListener("resize", () => {
-    if (document.getElementById("final").style.display !== "flex") {
-        showStep();
-    }
-});
+  // Se girar/trocar tamanho, re-renderiza o botão atual sem avançar
+  addEventListener('resize', () => {
+    if (finalScreen.style.display !== 'flex') renderStep();
+  });
 </script>
 
 </body>
